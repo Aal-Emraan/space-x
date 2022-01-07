@@ -8,8 +8,9 @@ const InfoCard = ({ incident }) => {
     launch_year,
     launch_success,
     links,
-    launch_landing,
+    rocket,
   } = incident;
+  console.log(incident);
   return (
     <div className="p-5 rounded-md bg-white">
       <img
@@ -44,7 +45,7 @@ const InfoCard = ({ incident }) => {
       <p className="font-bold my-1">
         Successful Landing:{" "}
         <span className="text-gray-500 font-normal">
-          {launch_landing ? "True" : "False"}
+          {rocket?.first_stage.cores[0].land_success != null ? "True" : "False"}
         </span>
       </p>
     </div>

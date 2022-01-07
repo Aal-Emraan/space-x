@@ -8,26 +8,49 @@ const MainComponent = () => {
     fetch("https://api.spacexdata.com/v3/launches?limit=100")
       // fetch("../../../fakeData/fakeData.json")
       .then((res) => res.json())
-      .then((data) => setAllEvents(data));
+      .then((data) => {
+        setAllEvents(data);
+        setFilteredEvents(data);
+      });
   }, []);
 
-  const [filtaredEvents, setFilteredEvents] = useState(allEvents);
+  const [filtaredEvents, setFilteredEvents] = useState();
+
+  const [year, setYear] = useState();
+  const [launchSuccess, setLaunchSuccess] = useState();
+  const [landingSuccess, setLandingSuccess] = useState();
 
   const handleOnClick = (year) => {
+    setYear(year);
     const yearFilter = allEvents?.filter((num) => num.launch_year == year);
     setFilteredEvents(yearFilter);
   };
 
-  const handleSuccess = (success) => {
+  const handleLaunchSuccess = (success) => {
     const successFilter = allEvents.filter(
       (num) => num.launch_success == success
     );
     if (success == "True") {
+      setLaunchSuccess("true");
       fetch(
         "https://api.spacexdata.com/v3/launches?limit=100&launch_success=true"
       )
         .then((res) => res.json())
         .then((data) => setFilteredEvents(data));
+    }
+    if (success == "False") {
+      setLaunchSuccess("false");
+      fetch(
+        "https://api.spacexdata.com/v3/launches?limit=100&launch_success=false"
+      )
+        .then((res) => res.json())
+        .then((data) => setFilteredEvents(data));
+    }
+  };
+
+  const handleLandingSuccess = (success) => {
+    if (success == "True") {
+      setLandingSuccess("true");
     }
   };
 
@@ -137,13 +160,13 @@ const MainComponent = () => {
             </p>
             <div className="grid grid-cols-2 gap-5 mt-5">
               <button
-                onClick={() => handleSuccess("True")}
+                onClick={() => handleLaunchSuccess("True")}
                 className="bg-lime-300 focus:bg-lime-500 hover:bg-lime-400 font-semibold p-1 rounded text-center"
               >
                 True
               </button>
               <button
-                onClick={() => handleSuccess("False")}
+                onClick={() => handleLaunchSuccess("False")}
                 className="bg-lime-300 focus:bg-lime-500 hover:bg-lime-400 font-semibold p-1 rounded text-center"
               >
                 False
@@ -166,7 +189,7 @@ const MainComponent = () => {
         </div>
         <div className="md:col-span-4 rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {filtaredEvents.length > 0 ? (
+            {filtaredEvents?.length > 0 ? (
               filtaredEvents?.map((incident) => (
                 <InfoCard key={incident.flight_number} incident={incident} />
               ))
