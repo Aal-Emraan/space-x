@@ -13,11 +13,9 @@ const InfoCard = ({ incident }) => {
   console.log(incident);
   return (
     <div className="p-5 rounded-md bg-white">
-      <img
-        className="bg-gray-100 rounded-sm mx-auto"
-        src={links.mission_patch_small}
-        alt=""
-      />
+      <div className="bg-gray-100 rounded-sm">
+        <img className="mx-auto" src={links.mission_patch_small} alt="" />
+      </div>
       <div>
         <h1 className="font-bold text-xl text-indigo-600 my-5">
           {mission_name}
@@ -26,25 +24,25 @@ const InfoCard = ({ incident }) => {
         <div className="font-bold text-lg">Mission Ids:</div>
         <ul className="list-disc pl-8 py-1">
           {mission_id.length > 0 ? (
-            mission_id?.map((id) => <li className="text-indigo-600">{id}</li>)
+            mission_id?.map((id) => <li className="text-indigo-500">{id}</li>)
           ) : (
-            <li className="text-indigo-600">None</li>
+            <li className="text-indigo-500">None</li>
           )}
         </ul>
       </div>
       <p className="font-bold my-1">
         Launch Year:{" "}
-        <span className="text-gray-500 font-normal">{launch_year}</span>
+        <span className="text-indigo-500 font-normal">{launch_year}</span>
       </p>
       <p className="font-bold my-1">
         Successful Launch:{" "}
-        <span className="text-gray-500 font-normal">
+        <span className="text-indigo-500 font-normal">
           {launch_success ? "True" : "False"}
         </span>
       </p>
       <p className="font-bold my-1">
         Successful Landing:{" "}
-        <span className="text-gray-500 font-normal">
+        <span className="text-indigo-500 font-normal">
           {rocket?.first_stage.cores[0].land_success != null ? "True" : "False"}
         </span>
       </p>

@@ -49,8 +49,11 @@ const MainComponent = () => {
   };
 
   const handleLandingSuccess = (success) => {
-    if (success == "True") {
+    if (success == "True" && launchSuccess == "true") {
       setLandingSuccess("true");
+    }
+    if (success == "False") {
+      setLandingSuccess("false");
     }
   };
 
