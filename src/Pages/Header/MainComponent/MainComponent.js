@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import InfoCard from "../../InfoCard/InfoCard";
 
 const MainComponent = () => {
   const [allEvents, setAllEvents] = useState();
@@ -8,8 +9,6 @@ const MainComponent = () => {
       .then((res) => res.json())
       .then((data) => setAllEvents(data));
   }, []);
-
-  console.log(allEvents);
   return (
     <main>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
@@ -56,7 +55,13 @@ const MainComponent = () => {
             </div>
           </div>
         </div>
-        <div className="md:col-span-3 bg-white p-10 rounded-lg"></div>
+        <div className="md:col-span-3 rounded-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {allEvents?.map((event) => (
+              <InfoCard key={event.mission_name} event={event} />
+            ))}
+          </div>
+        </div>
       </div>
     </main>
   );
