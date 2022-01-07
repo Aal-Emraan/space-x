@@ -1,6 +1,6 @@
 import React from "react";
 
-const InfoCard = ({ event }) => {
+const InfoCard = ({ incident }) => {
   const {
     mission_name,
     flight_number,
@@ -9,34 +9,43 @@ const InfoCard = ({ event }) => {
     launch_success,
     links,
     launch_landing,
-  } = event;
-  console.log(event);
+  } = incident;
   return (
     <div className="p-5 rounded-md bg-white">
       <img
-        className="bg-gray-100 rounded-sm"
+        className="bg-gray-100 rounded-sm mx-auto"
         src={links.mission_patch_small}
         alt=""
       />
       <div>
-        <h1>
-          {mission_name}#{flight_number}
+        <h1 className="font-bold text-xl text-indigo-600 my-5">
+          {mission_name}
+          <span className="ml-2">#{flight_number}</span>
         </h1>
-        <div>Mission Ids</div>
-        <ul>
-          {mission_id?.map((id) => (
-            <li>{id}</li>
-          ))}
+        <div className="font-bold text-lg">Mission Ids:</div>
+        <ul className="list-disc pl-8 py-1">
+          {mission_id.length > 0 ? (
+            mission_id?.map((id) => <li className="text-indigo-600">{id}</li>)
+          ) : (
+            <li className="text-indigo-600">None</li>
+          )}
         </ul>
       </div>
-      <p>
-        Launch Year: <span>{launch_year}</span>
+      <p className="font-bold my-1">
+        Launch Year:{" "}
+        <span className="text-gray-500 font-normal">{launch_year}</span>
       </p>
-      <p>
-        Successful Launch: <span>{launch_success ? "True" : "False"}</span>
+      <p className="font-bold my-1">
+        Successful Launch:{" "}
+        <span className="text-gray-500 font-normal">
+          {launch_success ? "True" : "False"}
+        </span>
       </p>
-      <p>
-        Successful Landing: <span>{launch_landing ? "True" : "False"}</span>
+      <p className="font-bold my-1">
+        Successful Landing:{" "}
+        <span className="text-gray-500 font-normal">
+          {launch_landing ? "True" : "False"}
+        </span>
       </p>
     </div>
   );
