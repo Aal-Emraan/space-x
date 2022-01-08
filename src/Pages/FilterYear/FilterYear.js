@@ -93,6 +93,12 @@ const FilterYear = ({ handleOnClick }) => {
       >
         2020
       </button>
+      <button
+        onClick={() => handleOnClick("all")}
+        className="bg-lime-300 focus:bg-lime-500 hover:bg-lime-400 font-semibold p-1 rounded text-center"
+      >
+        All
+      </button>
     </div>
   );
 };

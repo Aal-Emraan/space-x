@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import FilterYear from "../../FilterYear/FilterYear";
-import InfoCard from "../../InfoCard/InfoCard";
-import LaunchAndLandFilter from "../../LaunchAndLandFilter/LaunchAndLandFilter";
-import Loading from "../../Loading/Loading";
+import FilterYear from "../FilterYear/FilterYear";
+import InfoCard from "../InfoCard/InfoCard";
+import LaunchAndLandFilter from "../LaunchAndLandFilter/LaunchAndLandFilter";
+import Loading from "../Loading/Loading";
 import "./MainComponent.css";
 
 const MainComponent = () => {
@@ -23,6 +23,10 @@ const MainComponent = () => {
   const [filtaredEvents, setFilteredEvents] = useState();
 
   const handleOnClick = (year) => {
+    if (year == "all") {
+      setFilteredEvents(allEvents);
+      return;
+    }
     const yearFilter = allEvents?.filter((num) => num.launch_year == year);
     setFilteredEvents(yearFilter);
   };
