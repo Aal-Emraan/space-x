@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InfoCard from "../../InfoCard/InfoCard";
+// import "./MainComponent.css";
 
 const MainComponent = () => {
   const [allEvents, setAllEvents] = useState();
@@ -16,50 +17,38 @@ const MainComponent = () => {
 
   const [filtaredEvents, setFilteredEvents] = useState();
 
-  const [year, setYear] = useState();
-  const [launchSuccess, setLaunchSuccess] = useState();
-  const [landingSuccess, setLandingSuccess] = useState();
+  // const [year, setYear] = useState();
+  // const [launchSuccess, setLaunchSuccess] = useState();
+  // const [landingSuccess, setLandingSuccess] = useState();
 
   const handleOnClick = (year) => {
-    setYear(year);
     const yearFilter = allEvents?.filter((num) => num.launch_year == year);
     setFilteredEvents(yearFilter);
   };
 
   const handleLaunchSuccess = (success) => {
-    const successFilter = allEvents.filter(
-      (num) => num.launch_success == success
-    );
-    if (success == "True") {
-      setLaunchSuccess("true");
-      fetch(
-        "https://api.spacexdata.com/v3/launches?limit=100&launch_success=true"
-      )
-        .then((res) => res.json())
-        .then((data) => setFilteredEvents(data));
-    }
-    if (success == "False") {
-      setLaunchSuccess("false");
-      fetch(
-        "https://api.spacexdata.com/v3/launches?limit=100&launch_success=false"
-      )
-        .then((res) => res.json())
-        .then((data) => setFilteredEvents(data));
-    }
+    // setLaunchSuccess(success);
+    fetch(
+      `https://api.spacexdata.com/v3/launches?limit=100&launch_success=${success}`
+    )
+      .then((res) => res.json())
+      .then((data) => setFilteredEvents(data));
   };
 
   const handleLandingSuccess = (success) => {
-    if (success == "True" && launchSuccess == "true") {
-      setLandingSuccess("true");
-    }
-    if (success == "False") {
-      setLandingSuccess("false");
-    }
+    fetch(
+      `https://api.spacexdata.com/v3/launches?limit=100&launch_success=true&land_success=${success}`
+    )
+      .then((res) => res.json())
+      .then((data) => setFilteredEvents(data));
   };
 
   return (
     <main>
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
+      <div
+        id="main-div"
+        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5"
+      >
         <div className="md:col-span-1 bg-white p-10 rounded-lg self-start">
           <h1 className="text-2xl font-bold mb-2">Filters</h1>
           <p className="border-b font-semibold border-b-gray-300 text-center">
@@ -163,13 +152,13 @@ const MainComponent = () => {
             </p>
             <div className="grid grid-cols-2 gap-5 mt-5">
               <button
-                onClick={() => handleLaunchSuccess("True")}
+                onClick={() => handleLaunchSuccess("true")}
                 className="bg-lime-300 focus:bg-lime-500 hover:bg-lime-400 font-semibold p-1 rounded text-center"
               >
                 True
               </button>
               <button
-                onClick={() => handleLaunchSuccess("False")}
+                onClick={() => handleLaunchSuccess("false")}
                 className="bg-lime-300 focus:bg-lime-500 hover:bg-lime-400 font-semibold p-1 rounded text-center"
               >
                 False
@@ -181,16 +170,22 @@ const MainComponent = () => {
               Succesfull Landing
             </p>
             <div className="grid grid-cols-2 gap-5 mt-5">
-              <button className="bg-lime-300 focus:bg-lime-500 hover:bg-lime-400 font-semibold p-1 rounded text-center">
+              <button
+                onClick={() => handleLandingSuccess("true")}
+                className="bg-lime-300 focus:bg-lime-500 hover:bg-lime-400 font-semibold p-1 rounded text-center"
+              >
                 True
               </button>
-              <button className="bg-lime-300 focus:bg-lime-500 hover:bg-lime-400 font-semibold p-1 rounded text-center">
+              <button
+                onClick={() => handleLandingSuccess("false")}
+                className="bg-lime-300 focus:bg-lime-500 hover:bg-lime-400 font-semibold p-1 rounded text-center"
+              >
                 False
               </button>
             </div>
           </div>
         </div>
-        <div className="md:col-span-4 rounded-lg">
+        <div className="md:col-span-2 lg:col-span-4 rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {filtaredEvents?.length > 0 ? (
               filtaredEvents?.map((incident) => (

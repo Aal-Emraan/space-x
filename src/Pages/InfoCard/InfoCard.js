@@ -10,7 +10,7 @@ const InfoCard = ({ incident }) => {
     links,
     rocket,
   } = incident;
-  console.log(incident);
+  // console.log(flight_number);
   return (
     <div className="p-5 rounded-md bg-white">
       <div className="bg-gray-100 rounded-sm">
@@ -43,7 +43,7 @@ const InfoCard = ({ incident }) => {
       <p className="font-bold my-1">
         Successful Landing:{" "}
         <span className="text-indigo-500 font-normal">
-          {rocket?.first_stage.cores[0].land_success != null ? "True" : "False"}
+          {rocket?.first_stage.cores[0].land_success ? "True" : "False"}
         </span>
       </p>
     </div>
