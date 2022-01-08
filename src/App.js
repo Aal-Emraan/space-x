@@ -7,7 +7,7 @@ import Footer from "./Pages/Footer/Footer";
 function App() {
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="p-5">
+      <div id="container" className="p-5">
         <Header />
         <MainComponent />
         <Footer />

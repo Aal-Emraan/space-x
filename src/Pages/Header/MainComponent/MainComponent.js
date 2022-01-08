@@ -3,7 +3,7 @@ import FilterYear from "../../FilterYear/FilterYear";
 import InfoCard from "../../InfoCard/InfoCard";
 import LaunchAndLandFilter from "../../LaunchAndLandFilter/LaunchAndLandFilter";
 import Loading from "../../Loading/Loading";
-// import "./MainComponent.css";
+import "./MainComponent.css";
 
 const MainComponent = () => {
   const [allEvents, setAllEvents] = useState();
@@ -55,9 +55,12 @@ const MainComponent = () => {
     <main>
       <div
         id="main-div"
-        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5"
+        // className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5"
       >
-        <div className="md:col-span-1 bg-white p-10 rounded-lg self-start">
+        <div
+          id="filter-div"
+          className="bg-white shadow p-10 rounded-lg self-start"
+        >
           <h1 className="text-2xl font-bold mb-2">Filters</h1>
           <p className="border-b font-semibold border-b-gray-300 text-center">
             Launch Year
@@ -68,11 +71,11 @@ const MainComponent = () => {
             handleLandingSuccess={handleLandingSuccess}
           />
         </div>
-        <div className="md:col-span-2 lg:col-span-4 rounded-lg">
+        <div id="info-div" className="rounded-lg">
           {loading ? (
             <Loading />
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div id="info-card-div" className="">
               {filtaredEvents?.length > 0 ? (
                 filtaredEvents?.map((incident) => (
                   <InfoCard key={incident.flight_number} incident={incident} />
